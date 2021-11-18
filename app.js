@@ -40,7 +40,7 @@ app.controller("navController", function ($scope, $location) {
 
 app.config(function ($sceDelegateProvider) {
     $sceDelegateProvider.resourceUrlWhitelist([
-        "http://itunes.apple.com/**",
+        "https://itunes.apple.com/**",
         'self'
     ]);
 });
