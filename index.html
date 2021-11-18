@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{title}}</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
+        integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
+    <link rel="stylesheet" href="styles.css">
+    <script src="app.js"></script>
+</head>
+
+<!-- Controller for basket -->
+<body ng-controller="basket">
+    <!-- Nav -->
+    <nav class="navbar navbar-expand-lg navbar-dark" ng-controller="navController">
+        <div class="container-fluid">
+            <!-- Navbar Logo -->
+            <a class="navbar-brand" href="#/!"><img src="images/logo.svg" id="logo"></a>
+            <!-- Nav burger toggle -->
+            <button class="navbar-toggler mx-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-collapsed="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <!-- Basket icon - hidden at large viewport for positioning-->
+            <a class="btn" ng-click="basketClick()" resizer
+                ng-class="{'d-none': isSmall || isLarge, 'basket-outline': outline}"><i
+                    class="fas fa-shopping-basket text-white fa-2x"></i></a>
+                    <!-- Nav items -->
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav" resizer ng-class="{'ms-0': isxSmall || isSmallMobile}">
+                    <li class="nav-item">
+                        <!-- Nav items - ng-class to change active in view -->
+                        <a class="nav-link" aria-current="page" href="#/!" ng-class="{active: isActive('/')}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="#!search"
+                            ng-class="{ active: isActive('/search')}">Search</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="#!vouchers"
+                            ng-class="{ active: isActive('/vouchers')}">Vouchers</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="#!contact"
+                            ng-class="{ active: isActive('/contact')}" data-bs-target="#navbarNav">Contact</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- Basket for large viewport -->
+            <a class="btn" ng-click="basketClick()" resizer
+                ng-class="{'d-none': isxSmall || isSmallMobile, 'basket-outline': outline}"><i
+                    class="fas fa-shopping-basket text-white fa-2x"></i></a>
+        </div>
+    </nav>
+    <!-- Main start - ng-class to disable scroll while basket open -->
+    <main ng-class="show ? 'no-side' : '' ">
+        <!-- Basket Start - Show toggles basket, init sets initial basket to hide-->
+        <div ng-class="[show ? 'basket-box-show' : 'basket-box-hide', init ? 'basket-init' : '']" class="ps-2">
+            <div class="container-fluid text-white">
+                <div class="row text-center">
+                    <div class="col">
+                        <p class="h1">Basket</p>
+                        <!-- Message to show basket is empty, if empty -->
+                        <p>{{emptyBasket}}</p>
+                    </div>
+                </div>
+                <!-- Ng repeat for contents added to basket -->
+                <div class="row" ng-repeat="content in basketContent">
+                    <div class="card basket-item pe-0 ps-0">
+                        <div class="row g-0">
+                            <div class="col-4">
+                                <!-- Basket content image -->
+                                <img ng-src="{{content.img}}" class="basket-img mt-2 mb-2" alt="{{content.src}}">
+                            </div>
+                            <div class="col-8 text-center">
+                                <div class="card-body text-center">
+                                    <!-- Name of basket content -->
+                                    <p class="card-title h3">{{content.name}}</p>
+                                        <label for="amount" id="label-amount" class="d-block">Quantity</label>
+                                        <!-- Minus amount of items in basket -->
+                                        <button type="button" id="basket-minus"
+                                            ng-click="basketMinus(content.amount, $index)"></button>
+                                            <!-- Input showing amount of items in basket-->
+                                        <input type="number" name="amount" class="bg-white text-black voucher-amount"
+                                            ng-value="content.amount" min="0">
+                                            <!-- Plus amount of items in basket -->
+                                        <button type="button" id="basket-plus"
+                                            ng-click="basketPlus(content.amount, $index)"></button>
+                                            <!-- Total price of individual items in basket -->
+                                        <p class="card-subtitle mt-1">Total: £{{content.total}}</p>
+                                        <!-- Button to remove items from basket -->
+                                        <button class="btn btn-outline-light mt-3 d-block mx-auto"
+                                            ng-click="basketRemove(content.name)" id="remove-button">Remove From
+                                            Basket</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row pe-0 my-3">
+                    <div class="col d-grid text-start">
+                        <!-- Total price of all items in basket -->
+                        <p class="h4" ng-class="{'d-none': emptyBasket.length>1}">Sub-Total: £{{costSubTotal}}</p>
+                        <!-- Total number of items in basket -->
+                        <p class="fw-light" ng-class="{'d-none': emptyBasket.length>1}">{{itemTotal}} items</p>
+                    </div>
+                </div>
+                <div class="row pe-0 my-3">
+                    <div class="col d-grid text-center">
+                        <!-- Purchase button which brings up bootstrap modal form -->
+                        <button class="btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#purchase-modal"
+                            ng-class="{'d-none': emptyBasket.length>1}">Purchase</button>
+                            <!-- Closes basket -->
+                        <button class="btn btn-outline-light mt-2" ng-click="basketClick()">Close Basket</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Div that covers screen when basket is open, used to close basket by clicking outside -->
+        <div ng-click="basketClose()" id="close" ng-class="[show ? 'close' : '']"></div>
+        <!-- Controller for purchase detail form -->
+        <div ng-controller="purchaseForm">
+            <!-- Modal for deatils form -->
+            <div class="modal fade" id="purchase-modal" tabindex="-1" aria-labelledby="Purchase Details"
+                aria-hidden="true" data-bs-backdrop="static">
+                <div class="modal-dialog modal-xl modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modal-label">Purchase Details</h5>
+                            <!-- Closes modal -->
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <!-- Form start - ng-submit to submit details and opens second modal -->
+                            <form name="deatils-form" ng-submit="submit(details)">
+                                <div class="row">
+                                    <div class="col">
+                                        <!-- First name -->
+                                        <label for="first-name" class="form-label">First Name</label>
+                                        <input type="text" class="form-control" placeholder="First name" id="first-name"
+                                            required ng-model="details.firstName">
+                                    </div>
+                                    <div class="col">
+                                        <!-- Last Name -->
+                                        <label for="last-name" class="form-label">Last Name</label>
+                                        <input type="text" class="form-control" placeholder="Last name" id="last-name"
+                                            required ng-model="details.secondName">
+                                    </div>
+                                </div>
+                                <!-- Email address -->
+                                <div class="row mt-2">
+                                    <div class="col">
+                                        <label for="email" class="form-label">Email Address</label>
+                                        <input type="email" class="form-control" placeholder="example@email.co.uk"
+                                            id="email" required ng-model="details.email">
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col">
+                                        <!-- Address 1 -->
+                                        <label for="address1" class="form-label">Address 1</label>
+                                        <input type="text" class="form-control" placeholder="Address 1" id="address1"
+                                            required ng-model="details.address1">
+                                    </div>
+                                    <div class="col">
+                                        <!-- Optional address 2 -->
+                                        <label for="address2" class="form-label">Address 2</label>
+                                        <input type="text" class="form-control" placeholder="Address 2" id="address2"
+                                            ng-model="details.address2">
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col">
+                                        <!-- City -->
+                                        <label for="city" class="form-label">City</label>
+                                        <input type="text" class="form-control" placeholder="City" id="city" required
+                                            ng-model="details.city">
+                                    </div>
+                                    <div class="col">
+                                        <!-- Postcode -->
+                                        <label for="postcode" class="form-label">Postcode</label>
+                                        <input type="text" class="form-control" placeholder="Postcode" id="postcode"
+                                            required ng-model="details.postcode">
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col">
+                                        <!-- Optional comment -->
+                                        <label for="comment" class="form-label">Comment</label>
+                                        <textarea class="form-control" placeholder="Comment" id="comment" rows="3"
+                                            ng-model="details.comment"></textarea>
+                                    </div>
+                                </div>
+                        </div>
+                        <div class="modal-footer">
+                            <!-- Button to close modal -->
+                            <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Close</button>
+                            <!-- Button to submit form -->
+                            <button type="submit" class="btn btn-outline-success">Purchase</button>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- Start of second modal to return user details -->
+            <div class="modal fade" id="receipt-modal" tabindex="-1" aria-labelledby="Recepit Details"
+                aria-hidden="true" data-bs-backdrop="static">
+                <div class="modal-dialog modal-xl modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modal-label">Receipt Details</h5>
+                            <!-- Button closes modal and refreshes page to reset basket - as if items bought -->
+                            <button type="button" class="btn-close" ng-click="reset()" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col">
+                                    <p class="h3">Details</p>
+                                    <!-- List of users details entered -->
+                                    <ul class="list-unstyled">
+                                        <li>{{master.firstName + " " + master.secondName}}</li>
+                                        <li>{{master.email}}</li>
+                                        <li>{{master.address1}}</li>
+                                        <li>{{master.address2}}</li>
+                                        <li>{{master.city}}</li>
+                                        <li>{{master.postcode}}</li>
+                                        <li>{{master.comment}}</li>
+                                    </ul>
+                                </div>
+                                <div class="col">
+                                    <p class="h3">Order</p>
+                                    <ul class="list-unstyled">
+                                        <!-- Ng-repeat of items bought and amount bought-->
+                                        <li ng-repeat="bought in basketContent">
+                                            {{bought.name + " x " + bought.amount}}
+                                        </li>
+                                        <li class="mt-5 h3">Sub-Total</li>
+                                    </ul>
+                                </div>
+                                <div class="col">
+                                    <p class="h3">Total</p>
+                                    <ul class="list-unstyled">
+                                        <!-- Ng-repeat of items bought for price of individual items -->
+                                        <li ng-repeat="bought in basketContent">
+                                            {{"£" + bought.total}}
+                                        </li>
+                                        <!-- Total of all items bought -->
+                                        <li class="mt-5">{{"£"+costSubTotal}}</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <!-- Button closes modal and refreshes page to reset basket - as if items bought -->
+                                <button type="button" class="btn btn-outline-dark" ng-click="reset()">Done</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Angular single page app -->
+        <div ng-view></div>
+    </main>
+    <!-- footer -->
+    <footer class="fixed-bottom">
+        <nav class="navbar navbar-expand-lg navbar-dark" ng-controller="navController">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#/!">GETMEDIA</a>
+                <!-- Nav items - ng-class to change active in view -->
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav mx-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="#/!"
+                                ng-class="{ active: isActive('/')}">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="#!search"
+                                ng-class="{ active: isActive('/search')}">Search</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="#!vouchers"
+                                ng-class="{ active: isActive('/vouchers')}">Vouchers</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="#!contact"
+                                ng-class="{ active: isActive('/contact')}">Contact</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </footer>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous">
+</script>
+<script src="https://code.jquery.com/jquery-3.6.0.slim.js"
+    integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY=" crossorigin="anonymous"></script>
+<script src="script.js"></script>
+</html>

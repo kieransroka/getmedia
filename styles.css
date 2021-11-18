@@ -1,0 +1,719 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&family=Staatliches&display=swap');
+
+/* HTML & Body set */
+html,
+body {
+    min-height: 100vh;
+    width: 100%;
+    overflow-x: hidden;
+}
+
+/* Style for main */
+main {
+    min-height: calc(100vh - 129.6px);
+    max-height: calc(100vh - 129.6px);
+    width: 100%;
+    position: relative;
+}
+
+/* Bootstrap h1 style */
+.h1 {
+    font-family: 'Staatliches', cursive;
+    font-size: 50px;
+}
+
+/* Bootstrap h2 style */
+.h2 {
+    font-family: 'Staatliches', cursive;
+}
+
+/* Bootstrap h3 style */
+.h3 {
+    font-family: 'Staatliches', cursive;
+}
+
+/* Custom scrollbar */
+*::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Custom scrollbar track*/
+*::-webkit-scrollbar-track {
+    background: #282828;
+}
+
+/* Custom scrollbar scroller*/
+*::-webkit-scrollbar-thumb {
+    background: rgb(235, 235, 235);
+    border-radius: 20px;
+}
+
+/* Custom scrollbar scroller on hover*/
+*::-webkit-scrollbar-thumb:hover {
+    background: rgb(182, 182, 182);
+}
+
+/* Removes scrollbar when basket is open */
+.no-side {
+    overflow-y: hidden;
+}
+
+/* Styles for buttons and input */
+button,
+input,
+.btn {
+    font-family: 'Roboto', sans-serif;
+    font-size: 20px !important;
+}
+
+/* Bootstrap button style */
+.btn-outline-dark {
+    border-width: 2px !important;
+}
+
+/* headings */
+h1 {
+    font-family: 'Staatliches', cursive;
+    font-size: 75px;
+}
+
+h2 {
+    font-family: 'Staatliches', cursive;
+    font-size: 55px;
+}
+
+/* Remove nav padding */
+nav {
+    padding: 0 !important;
+    background-color: #282828;
+}
+
+/* logo on top nav */
+#logo {
+    width: 60px;
+    height: 60px;
+}
+
+/* Margin for top nav items*/
+.navbar-nav {
+    margin-left: 100px;
+}
+
+/* For nav items on top & brand on bottom nav */
+.nav-item,
+.navbar-brand {
+    font-family: 'Staatliches', cursive;
+    font-size: 35px;
+}
+
+/* Outline for basket icon when basket is active */
+.basket-outline {
+    outline: white 1px solid;
+}
+
+/* ~~~~~~~~~~~~~~~ Basket Start ~~~~~~~~~~~~~~ */
+
+/* Hides basket when first loaded */
+.basket-init {
+    display: none;
+}
+
+/* Style for basket div */
+.basket-box-show,
+.basket-box-hide {
+    position: absolute;
+    right: 0;
+    width: 50%;
+    max-width: 557px;
+    max-height: 100%;
+    background-color: #282828;
+    z-index: 5;
+    overflow-y: scroll;
+}
+
+/* Animation for basket showing */
+.basket-box-show {
+    animation: slide-in-right 0.5s ease-out forwards;
+}
+
+/* Animation for basket hiding */
+.basket-box-hide {
+    animation: slide-out-right 1s forwards;
+}
+
+/* Animations for basket show / hide */
+@keyframes slide-in-right {
+    0% {
+        transform: translateX(1000px);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slide-out-right {
+    0% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateX(1000px);
+        opacity: 0;
+        display: none;
+    }
+}
+
+/* Style for card with items in basket */
+.basket-item {
+    background-color: #282828;
+    border-top: 1px solid white !important;
+    border-bottom: 1px solid white !important;
+}
+
+/* Style for minus button in basket */
+#basket-minus {
+    width: 20px;
+    height: 20px;
+    background-image: url(images/minus-solid-white.svg);
+    background-position: center;
+    background-repeat: no-repeat;
+    border: none;
+    background-color: #282828 !important;
+}
+
+/* Style for plus button in basket */
+#basket-plus {
+    width: 20px;
+    height: 20px;
+    background-image: url(images/plus-solid-white.svg);
+    background-position: center;
+    background-repeat: no-repeat;
+    border: none;
+    background-color: #282828 !important;
+}
+
+/* Label above input in basket */
+#label-amount {
+    font-family: 'Roboto', sans-serif;
+    font-size: 18px;
+}
+
+/* Item image in basket */
+.basket-img {
+    width: 125px;
+    height: 200px;
+}
+
+/* Style for forms */
+form input {
+    background-color: #282828 !important;
+    color: #fff !important;
+    font-family: 'Roboto', sans-serif !important;
+}
+
+/* For form input placeholder */
+form input::placeholder {
+    color: rgb(196, 196, 196) !important;
+}
+
+/* For textarea placeholder */
+textarea::placeholder {
+    color: rgb(196, 196, 196) !important
+}
+
+/* For form input autofill */
+input:-webkit-autofill,
+input:-webkit-autofill:focus {
+    transition: background-color 600000s 0s, color 600000s 0s;
+}
+
+/* For form autocomplete */
+input[data-autocompleted] {
+    background-color: #282828 !important;
+    color: #fff !important;
+}
+
+/* For form textarea */
+textarea {
+    resize: none;
+    background-color: #282828 !important;
+    color: #fff !important;
+}
+
+/* For form labels */
+.form-label {
+    font-family: 'Staatliches', cursive !important;
+    font-size: 1.4rem !important;
+}
+
+/* Main container to offset footer */
+#mainContain {
+    padding-bottom: 60px;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* Div used to close basket */
+.close {
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
+/* ~~~~~~~~~~~~~~~~~~~~~~~ Landing Page Start ~~~~~~~~~~~~~~~~~~~~ */
+
+/* Row containing cloud video on landing */
+#cloudRow {
+    height: 350px;
+}
+
+/* Pink filter over cloud video landing.html*/
+#circlewrapper {
+    display: block;
+    width: 300px;
+    height: 300px;
+    position: relative;
+    top: 10%;
+    left: 50%;
+    animation: increaseRadius 3s forwards;
+    border-radius: 50%;
+    overflow: auto;
+}
+
+/* Animation for circle on landing.html */
+@keyframes increaseRadius {
+    0% {
+        transform: translate(-50%, 0) scale(0);
+    }
+
+    100% {
+        transform: translate(-50%, 0) scale(1);
+    }
+}
+
+/* Pink filter over circle video landing.html */
+#filter {
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    background: linear-gradient(120deg, rgba(237, 132, 241, 0.096) 0%, rgba(250, 130, 244, 0.116) 100%);
+    z-index: 2;
+    border-radius: 50%;
+}
+
+/* Cloud video */
+#videoBG {
+    position: absolute;
+    object-fit: cover;
+    width: 300px;
+    height: 300px;
+    z-index: 1;
+    border-radius: 50%;
+    transform: none !important;
+}
+
+/* Used to space headings on landing page */
+#heading-start {
+    padding-right: 300px;
+}
+
+/* Used to space heading on landing page */
+#heading-end {
+    padding-left: 200px;
+}
+
+/* Browse button landing.html */
+#browseBtn {
+    width: 300px;
+    height: 50px;
+    border-radius: 75px;
+    font-size: 25px !important;
+}
+
+/* ~~~~~~~~~~~~~~~~~~~~~ Search Page Start ~~~~~~~~~~~~~~~~~~~~~~ */
+/* Search box input */
+#searchBox {
+    width: 300px;
+    height: 40px;
+    border: none;
+    background-color: #282828;
+    border-radius: 20px;
+    color: white;
+    padding-left: 40px;
+    padding-right: 10px;
+    background-image: url(images/search.svg);
+    background-repeat: no-repeat;
+    background-position: 5px 4px;
+    background-size: auto;
+    text-overflow: ellipsis;
+    outline: none;
+}
+
+/* Search box placeholder */
+#searchBox::placeholder {
+    color: white;
+    opacity: 1;
+    font-family: 'Roboto', sans-serif;
+    font-size: 20px;
+}
+
+/* Cancel button on search box input */
+::-webkit-search-cancel-button {
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    background: url(images/times-circle-solid.svg);
+}
+
+/* Spinner when searching for songs */
+.spinner-border {
+    width: 50px;
+    height: 50px;
+    display: none;
+}
+
+/* Sets padding of search results */
+.results {
+    padding: 0;
+}
+
+/* Style for all bootstrap cards */
+.card {
+    border: none;
+    border-right: solid #282828 1.5px;
+    border-radius: 0;
+}
+
+/* Style for all bootstrap card titles */
+.card-title {
+    font-family: 'Roboto', sans-serif;
+}
+
+/* Size of music results */
+.music-result {
+    min-height: 350px;
+    max-height: 350px;
+}
+
+/* Tooltip showing media type on search result */
+#tip {
+    position: absolute;
+    color: white;
+    padding-right: 27px;
+}
+
+/* Small triangle that connects tooltip to button */
+#triangle {
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 5px solid #282828;
+    margin-left: auto;
+}
+
+/* Text area in tooltip */
+#tipTxt {
+    background-color: #282828;
+    width: fit-content;
+    min-width: 110px;
+    border-radius: 4px;
+    padding: 5px;
+    margin-left: auto;
+}
+
+/* Capitalises first letter of tooltip */
+#tipTxt::first-letter {
+    text-transform: capitalize;
+}
+
+/* Sets search artwork size */
+.artwork {
+    width: 150px;
+    height: 150px;
+}
+
+/* For artist name */
+.card-subtitle {
+    font-weight: 400 !important;
+}
+
+/* For area of footer of results */
+.card-footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    padding: 0;
+    background-color: transparent;
+    border-top: none;
+    width: 100%;
+}
+
+/* For removing right border of search result at certain view width */
+.noBorder {
+    border-right: none !important;
+}
+
+/* Adds right border of search result at certain view width */
+.yesBorder {
+    border-top: none !important;
+    border-bottom: none !important;
+    border-left: none !important;
+    border-right: solid #282828 1.5px;
+}
+
+/* ~~~~~~~~~~~~~~~~~~~~~ VoucherPage Start ~~~~~~~~~~~~~~~~~~~~~~ */
+
+/* Card for voucher */
+#voucher-card {
+    min-height: 375px;
+}
+
+/* Image on voucher */
+.voucher-img {
+    width: 150px;
+    height: 225px;
+}
+
+/* Voucher input */
+.voucher-amount {
+    width: 35px;
+    text-align: center;
+    border: 2px solid #282828;
+    border-radius: 5px;
+}
+
+/* Voucher input */
+.voucher-amount::placeholder {
+    color: black;
+}
+
+/* Voucher input */
+.voucher-amount::-webkit-inner-spin-button {
+    display: none;
+}
+
+/* Minus button on voucher */
+#minus {
+    width: 20px;
+    height: 20px;
+    background-image: url(images/minus-solid.svg);
+    background-position: center;
+    background-repeat: no-repeat;
+    border: none;
+    background-color: white !important;
+}
+
+/* Plus button on voucher */
+#plus {
+    width: 20px;
+    height: 20px;
+    background-image: url(images/plus-solid.svg);
+    background-position: center;
+    background-repeat: no-repeat;
+    border: none;
+    background-color: white !important;
+}
+
+/* Voucher error */
+#error {
+    color: red;
+}
+
+
+/* ~~~~~~~~~~~~~~~~~~~~~ ContactPage Start ~~~~~~~~~~~~~~~~~~~~~~ */
+/* Contact form container */
+#contact-form {
+    border: 2px solid #282828;
+    border-radius: 1px;
+    padding: 20px;
+}
+
+/* Details container */
+#details {
+    border: 2px solid #282828;
+    border-radius: 1px;
+}
+
+/* Image of phone */
+#phone-img {
+    width: 35px;
+    height: 35px;
+}
+
+/* Image of envelope */
+#email-img {
+    width: 40px;
+    height: 40px;
+}
+
+/* ~~~~~~~~~~~~~~~~~~~~~ Footer Start ~~~~~~~~~~~~~~~~~~~~~~ */
+/* footer */
+footer {
+    max-height: 60px;
+}
+
+/* footer nav items */
+footer .nav-item {
+    font-size: 25px;
+}
+
+/* Smaller screen fix for heading text */
+@media only screen and (max-width: 768px) {
+
+    /* Heading on landing */
+    #heading {
+        font-size: 45px;
+    }
+
+    /* Heading on landing */
+    #heading-start {
+        padding-right: 200px;
+    }
+
+    /* Heading on landing */
+    #heading-end {
+        padding-left: 100px;
+    }
+
+    /* Basket container */
+    .basket-box-show,
+    .basket-box-hide {
+        width: 100%;
+    }
+
+}
+
+@media only screen and (max-width: 540px) {
+
+    /* Basket container */
+    .basket-box-show,
+    .basket-box-hide {
+        width: 100%;
+    }
+
+    /* Item image in basket */
+    .basket-img {
+        width: 125px;
+        height: 200px;
+    }
+
+    /* Video on landing */
+    #videoBG {
+        display: none;
+    }
+
+    /* Circle container on landing */
+    #circlewrapper {
+        background-image: url(images/skyBG.jpg);
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+    /* Bootstrap card title */
+    .card-title {
+        font-size: 20px !important;
+    }
+
+    /* Bootstrap card subtitle */
+    .card-subtitle {
+        font-size: 17px !important;
+    }
+}
+
+@media only screen and (max-width: 376px) {
+
+    /* Heading on landing */
+    #heading-start {
+        padding-right: 130px;
+    }
+
+    /* Heading on landing */
+    #heading-end {
+        padding-left: 0px;
+    }
+}
+
+
+@media only screen and (max-width: 320px) {
+
+    /* h1 tags */
+    h1 {
+        font-size: 60px;
+    }
+
+    /* Item image in basket */
+    .basket-img {
+        width: 100px;
+        height: 175px;
+    }
+
+    /* Search box on search page */
+    #searchBox {
+        width: 100%;
+    }
+
+    /* Artwork of search */
+    .artwork {
+        width: 100px;
+        height: 100px;
+    }
+
+    /* Bootstrap card title */
+    .card-title {
+        font-size: 18px !important;
+    }
+
+    /* Bootstrap card subtitle */
+    .card-subtitle {
+        font-size: 15px !important;
+    }
+
+    /* Voucher image */
+    .voucher-img {
+        width: 125px;
+        height: 200px;
+    }
+
+}
+
+@media only screen and (max-width: 280px) {
+
+    /* Circle on landing page */
+    #circlewrapper {
+        width: 260px;
+        height: 260px;
+    }
+
+    /* Heading on landing */
+    #heading-start {
+        padding-right: 0px;
+    }
+
+    /* Heading on landing */
+    #heading-end {
+        padding-left: 0px;
+    }
+
+    /* Browse button on landing */
+    #browseBtn {
+        width: 100%;
+    }
+
+    /* Button styles */
+    .btn {
+        font-size: 15px !important;
+    }
+
+    .h3{
+        font-size: 19px;
+    }
+}

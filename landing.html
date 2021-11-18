@@ -1,0 +1,29 @@
+<!-- Container for main content -->
+<div class="container-fluid h-100 d-flex flex-column justify-content-center" id="mainContain">
+    <!-- First row with video -->
+    <div class="row justify-content-center align-items-center" id="cloudRow">
+        <div class="col h-100">
+            <!-- Circle -->
+            <div id="circlewrapper">
+                <!-- Video -->
+                <video id="videoBG" loop autoplay muted>
+                    <source src="video/clouds.mp4" type="video/mp4">
+                </video>
+            </div>
+        </div>
+    </div>
+    <!-- Second Row with text - Ng class changes margin top based on size of view width -->
+    <div class="row justify-content-center align-items-center" resizer ng-class="{'mt-5': isLarge || isSmall, 'mt-1': isxSmall}">
+        <div class="col text-center">
+            <h1 id="heading"><span id="heading-start"> MEDIA AT</span> <br> <span id="heading-end"> YOUR
+                    FINGERTIPS</span></h1>
+        </div>
+    </div>
+    <!-- Ng class changes margin top based on size of view width -->
+    <div class="row justify-content-center align-items-center" resizer ng-class="{'mt-5': isLarge || isSmall, 'mt-1': isxSmall}">
+        <div class="col text-center">
+            <!-- Browse button to search page -->
+            <a href="#!search" class="btn btn-outline-dark" id="browseBtn">Browse</a>
+        </div>
+    </div>
+</div>

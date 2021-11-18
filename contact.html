@@ -1,0 +1,89 @@
+<!-- Ng controller for contact form -->
+<div class="container-fluid h-100 d-flex flex-column justify-content-center" id="mainContain"
+    ng-controller="contactForm">
+    <div class="row">
+        <div class="col text-center">
+            <h1>Contact</h1>
+        </div>
+    </div>
+    <!-- gx-0 to fix padding issue -->
+    <div class="row gx-0">
+        <!-- Form container - ng class to change some padding and the display order at different view widths -->
+        <div class="col-lg-7 col-12" resizer ng-class="{'order-2': isxSmall || isSmallMobile, 'pt-1': isxSmall || isSmallMobile, 'pe-1': isLarge || isSmall, 'pb-3': isxSmall || isSmallMobile}">
+            <!-- Start of form - ng submit to submit form -->
+            <form id="contact-form" ng-submit="submit()">
+                <div class="row">
+                    <div class="col">
+                        <!-- First name -->
+                        <label for="first-name" class="form-label">First Name</label>
+                        <input type="text" class="form-control" placeholder="First name" id="first-name" required>
+                    </div>
+                    <div class="col">
+                        <!-- Last name -->
+                        <label for="last-name" class="form-label">Last Name</label>
+                        <input type="text" class="form-control" placeholder="Last name" id="last-name" required>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col">
+                        <!-- Email -->
+                        <label for="email" class="form-label">Email Address</label>
+                        <input type="email" class="form-control" placeholder="example@email.co.uk" id="email" required>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col">
+                        <!-- Comment -->
+                        <label for="comment" class="form-label">Comment</label>
+                        <textarea class="form-control" placeholder="Comment" id="comment" rows="3" required></textarea>
+                    </div>
+                </div>
+                <!-- Form submit button -->
+                <button type="submit" class="btn btn-outline-dark w-100 mt-3">Submit</button>
+            </form>
+        </div>
+        <!-- Contact details container - ng class to change display order for smaller view width -->
+        <div class="col-lg-5 col-12 order-1 text-center" id="details" ng-class="{'order-1': isxSmall}">
+            <h2>Details</h2>
+            <div class="container-fluid h-50 d-flex flex-column justify-content-center" ng-class="{'mt-4': isSmall || isLarge}">
+                <div class="row mt-5 mb-2">
+                    <div class="col-4">
+                        <img src="images/phone.svg" alt="Phone" id="phone-img">
+                    </div>
+                    <div class="col-4 text-center">
+                        <p class="h2 mb-0">07352569236</p>
+                    </div>
+                </div>
+                <div class="row pt-3">
+                    <div class="col-4">
+                        <img src="images/mail.svg" alt="Email" id="email-img">
+                    </div>
+                    <div class="col-4">
+                        <p class="h3 text-center mb-0 pt-1 text-nowrap">get-media@media.com</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal to display after form submit - gives user feedback that form was submitted -->
+    <div class="modal fade" id="contact-modal" tabindex="-1" aria-labelledby="Thank You" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <!-- Button to close modal - ng-click resets form-->
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" ng-click="reset()" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Thank you message -->
+                    <p class="h1">Thank You</p>
+                    <p class="">Your message has been recieved.</p>
+                </div>
+                <div class="modal-footer">
+                    <!-- Button to close modal - ng-click resets form -->
+                    <button type="button" class="btn btn-outline-dark" ng-click="reset()" data-bs-dismiss="modal"
+                        aria-label="Close">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

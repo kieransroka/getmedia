@@ -1,0 +1,74 @@
+<!-- Controller for itunes search api -->
+<div class="container-fluid h-100 d-flex flex-column justify-content-center" id="mainContain"
+    ng-controller="iTunesController">
+    <div class="row">
+        <div class="col text-center">
+            <h1>Search</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col text-center">
+            {{ error }}
+            <!-- Form start for search -->
+            <form name="search">
+                <!-- Input auto searches when typed into, delay is set with debounce to give time to type -->
+                <input type="search" placeholder="Search..." id="searchBox" ng-model="artist"
+                    ng-model-options="{debounce:1000}" required autofocus autocomplete="off"
+                    ng-change="searchiTunes(artist)">
+                <br>
+                <!-- Spinner to give feedback that something is happening -->
+                <div class="spinner-border mt-5" role="status" id="spinner" ng-class="{'d-inline-block': spinner}">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </form>
+            <!-- Container hidden until search has returned -->
+            <div class="container mt-5" ng-show="songs">
+                <div class="row">
+                    <!-- Ng repeat for song results - Uses filter to remove unwanted results, order which is a custom filter,
+                         then orderBy to order results in custom order and then by newest released-->
+                    <div class="results col-xxl-3 col-xl-4 col-lg-4 col-6"
+                        ng-repeat="song in songs | filter:wrapperType:'track' | order:artist | orderBy:['order','-releaseDate'] track by $index">
+                        <!-- Ng class to change padding at different view widths -->
+                        <div class="container-fluid text-end position-relative"
+                            ng-class="{'pe-5': isLarge || isSmall, 'pe-3': isxSmall}">
+                            <!-- Tooltip which shows the type of content -->
+                            <i class="fas fa-info-circle" ng-mouseenter="tooltip=true" ng-mouseleave="tooltip=false"
+                                ng-focus="tooltip=true" ng-blur="tooltip=false" tabindex="0"></i>
+                            <div id="tip" ng-show="tooltip" class="container text-center">
+                                <div id="triangle" ng-class="{'me-5': isLarge || isSmall, 'me-3': isxSmall}"></div>
+                                <p id="tipTxt">{{song.kind}}</p>
+                            </div>
+                        </div>
+                        <!-- Card with ng class - Class either adds or removes the right border depending on view width and how
+                        the layout responds -->
+                        <div class="card mt-5 mb-5 music-result" resizer
+                            ng-class="{noBorder:($index+1)%3==0 && isSmall || ($index+1)%4==0 && isLarge || ($index+1)%3==0 && ($index+1)%4==0 && isSmall || $odd && isxSmall || $odd && isSmallMobile, yesBorder: ($index+1)%3==0 && isLarge || ($index+1)%4==0 && isSmall || $even && isxSmall || $even && isSmallMobile}">
+                            <!-- Song artwork -->
+                            <img ng-src="{{song.artworkUrl100}}" alt="{{song.collectionName}}" class="artwork mx-auto">
+                            <div class="card-body">
+                                <!-- Name of track, limits length depending on viewport -->
+                                <h4 class="card-title" resizer>
+                                    {{song.trackName.length > songCount ? (song.trackName | limitTo : songCount) + "..." : song.trackName}}
+                                    </h4>
+                                    <!-- Name of artist, limits length depending on viewport -->
+                                    <h5 class="card-subtitle" resizer>
+                                        {{song.artistName.length > artistCount ? (song.artistName | limitTo : artistCount) + "..." : song.artistName}}
+                                    </h5>
+                                    <!-- Price of song -->
+                                    <p class="card-text">£{{song.trackPrice}}</p>
+                                    <div class="card-footer text-center">
+                                        <!-- Button to apple music page where song can be purchased -->
+                                        <a href="{{song.trackViewUrl}}" class="btn btn-outline-dark"
+                                            target="_blank" resizer ng-class="{'d-block': isSmallMobile}">Purchase</a>
+                                            <!-- Button to preview song -->
+                                        <a href="{{song.previewUrl}}" class="btn btn-outline-dark" resizer ng-class="{'d-block': isSmallMobile}">Preview</a>
+                                    </div>
+                            </div>
+                        </div>
+                        <!--Card end-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
