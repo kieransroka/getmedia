@@ -47,14 +47,14 @@ app.config(function ($sceDelegateProvider) {
 
 
 // Controller for itunes search, controller gets the view's scope and the http service.
-app.controller("iTunesController", function ($scope, $http) {
+app.controller("iTunesController", function ($scope, $https) {
 
     // Search function called when input is fired
     $scope.searchiTunes = function (artist) {
         // Spinner shows while search is happening
         $scope.spinner = true;
         // Search
-        $http.jsonp('http://itunes.apple.com/search', {
+        $https.jsonp('https://itunes.apple.com/search', {
             jsonpCallbackParam: 'callback',
             params: {
                 'term': artist,
