@@ -12,7 +12,7 @@
             <!-- Form start for search -->
             <form name="search">
                 <!-- Input auto searches when typed into, delay is set with debounce to give time to type -->
-                <input type="search" placeholder="Search..." id="searchBox" ng-model="artist"
+                <input type="search" placeholder="Search by artist..." id="searchBox" ng-model="artist"
                     ng-model-options="{debounce:1000}" required autofocus autocomplete="off"
                     ng-change="searchiTunes(artist)">
                 <br>
@@ -27,7 +27,7 @@
                     <!-- Ng repeat for song results - Uses filter to remove unwanted results, order which is a custom filter,
                          then orderBy to order results in custom order and then by newest released-->
                     <div class="results col-xxl-3 col-xl-4 col-lg-4 col-6"
-                        ng-repeat="song in songs | filter:wrapperType:'track' | order:artist | orderBy:['order','-releaseDate'] track by $index">
+                        ng-repeat="song in songs | order:artist | orderBy:['order','-releaseDate'] track by $index">
                         <!-- Ng class to change padding at different view widths -->
                         <div class="container-fluid text-end position-relative"
                             ng-class="{'pe-5': isLarge || isSmall, 'pe-3': isxSmall}">
