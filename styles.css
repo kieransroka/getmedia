@@ -128,7 +128,7 @@ nav {
 
 /* Outline for basket icon when basket is active */
 .basket-outline {
-    outline: white 1px solid;
+    outline: white 1px solid !important;
 }
 
 /* ~~~~~~~~~~~~~~~ Basket Start ~~~~~~~~~~~~~~ */

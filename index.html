@@ -17,22 +17,23 @@
 </head>
 
 <!-- Controller for basket -->
+
 <body ng-controller="basket">
     <!-- Nav -->
     <nav class="navbar navbar-expand-lg navbar-dark" ng-controller="navController">
         <div class="container-fluid">
             <!-- Navbar Logo -->
-            <a class="navbar-brand" href="#/!"><img src="images/logo.svg" id="logo"></a>
+            <a class="navbar-brand" href="#/!"><img src="images/logo.svg" id="logo" alt="GetMedia Logo"></a>
             <!-- Nav burger toggle -->
             <button class="navbar-toggler mx-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-collapsed="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <!-- Basket icon - hidden at large viewport for positioning-->
-            <a class="btn" ng-click="basketClick()" resizer
-                ng-class="{'d-none': isSmall || isLarge, 'basket-outline': outline}"><i
-                    class="fas fa-shopping-basket text-white fa-2x"></i></a>
-                    <!-- Nav items -->
+            <button class="btn shadow-none" ng-click="basketClick()" resizer
+            ng-class="{'d-none': isxSmall || isSmallMobile, 'basket-outline': outline}" title="Basket"><i
+                class="fas fa-shopping-basket text-white fa-2x"></i></button>
+            <!-- Nav items -->
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav" resizer ng-class="{'ms-0': isxSmall || isSmallMobile}">
                     <li class="nav-item">
@@ -49,14 +50,14 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" aria-current="page" href="#!contact"
-                            ng-class="{ active: isActive('/contact')}" data-bs-target="#navbarNav">Contact</a>
+                            ng-class="{ active: isActive('/contact')}">Contact</a>
                     </li>
                 </ul>
             </div>
             <!-- Basket for large viewport -->
-            <a class="btn" ng-click="basketClick()" resizer
-                ng-class="{'d-none': isxSmall || isSmallMobile, 'basket-outline': outline}"><i
-                    class="fas fa-shopping-basket text-white fa-2x"></i></a>
+            <button class="btn shadow-none" ng-click="basketClick()" resizer
+                ng-class="{'d-none': isxSmall || isSmallMobile, 'basket-outline': outline}" title="Basket"><i
+                    class="fas fa-shopping-basket text-white fa-2x"></i></button>
         </div>
     </nav>
     <!-- Main start - ng-class to disable scroll while basket open -->
@@ -83,22 +84,22 @@
                                 <div class="card-body text-center">
                                     <!-- Name of basket content -->
                                     <p class="card-title h3">{{content.name}}</p>
-                                        <label for="amount" id="label-amount" class="d-block">Quantity</label>
-                                        <!-- Minus amount of items in basket -->
-                                        <button type="button" id="basket-minus"
-                                            ng-click="basketMinus(content.amount, $index)"></button>
-                                            <!-- Input showing amount of items in basket-->
-                                        <input type="number" name="amount" class="bg-white text-black voucher-amount"
-                                            ng-value="content.amount" min="0">
-                                            <!-- Plus amount of items in basket -->
-                                        <button type="button" id="basket-plus"
-                                            ng-click="basketPlus(content.amount, $index)"></button>
-                                            <!-- Total price of individual items in basket -->
-                                        <p class="card-subtitle mt-1">Total: £{{content.total}}</p>
-                                        <!-- Button to remove items from basket -->
-                                        <button class="btn btn-outline-light mt-3 d-block mx-auto"
-                                            ng-click="basketRemove(content.name)" id="remove-button">Remove From
-                                            Basket</button>
+                                    <label for="amount" id="label-amount" class="d-block">Quantity</label>
+                                    <!-- Minus amount of items in basket -->
+                                    <button type="button" id="basket-minus"
+                                        ng-click="basketMinus(content.amount, $index)"></button>
+                                    <!-- Input showing amount of items in basket-->
+                                    <input type="number" id="amount" name="amount" class="bg-white text-black voucher-amount"
+                                        ng-value="content.amount" min="0">
+                                    <!-- Plus amount of items in basket -->
+                                    <button type="button" id="basket-plus"
+                                        ng-click="basketPlus(content.amount, $index)"></button>
+                                    <!-- Total price of individual items in basket -->
+                                    <p class="card-subtitle mt-1">Total: £{{content.total}}</p>
+                                    <!-- Button to remove items from basket -->
+                                    <button class="btn btn-outline-light mt-3 d-block mx-auto"
+                                        ng-click="basketRemove(content.name)" id="remove-button">Remove From
+                                        Basket</button>
                                 </div>
                             </div>
                         </div>
@@ -117,7 +118,7 @@
                         <!-- Purchase button which brings up bootstrap modal form -->
                         <button class="btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#purchase-modal"
                             ng-class="{'d-none': emptyBasket.length>1}">Purchase</button>
-                            <!-- Closes basket -->
+                        <!-- Closes basket -->
                         <button class="btn btn-outline-light mt-2" ng-click="basketClick()">Close Basket</button>
                     </div>
                 </div>
@@ -128,12 +129,12 @@
         <!-- Controller for purchase detail form -->
         <div ng-controller="purchaseForm">
             <!-- Modal for deatils form -->
-            <div class="modal fade" id="purchase-modal" tabindex="-1" aria-labelledby="Purchase Details"
+            <div class="modal fade" id="purchase-modal" tabindex="-1" title="Purchase Details"
                 aria-hidden="true" data-bs-backdrop="static">
                 <div class="modal-dialog modal-xl modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="modal-label">Purchase Details</h5>
+                            <h5 class="modal-title">Purchase Details</h5>
                             <!-- Closes modal -->
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
@@ -198,24 +199,25 @@
                                             ng-model="details.comment" required></textarea>
                                     </div>
                                 </div>
+                                <div class="modal-footer">
+                                    <!-- Button to close modal -->
+                                    <button type="button" class="btn btn-outline-dark"
+                                        data-bs-dismiss="modal">Close</button>
+                                    <!-- Button to submit form -->
+                                    <button type="submit" class="btn btn-outline-success">Purchase</button>
+                                </div>
+                            </form>
                         </div>
-                        <div class="modal-footer">
-                            <!-- Button to close modal -->
-                            <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Close</button>
-                            <!-- Button to submit form -->
-                            <button type="submit" class="btn btn-outline-success">Purchase</button>
-                        </div>
-                        </form>
                     </div>
                 </div>
             </div>
             <!-- Start of second modal to return user details -->
-            <div class="modal fade" id="receipt-modal" tabindex="-1" aria-labelledby="Recepit Details"
+            <div class="modal fade" id="receipt-modal" tabindex="-1" title="Receipt Popup"
                 aria-hidden="true" data-bs-backdrop="static">
                 <div class="modal-dialog modal-xl modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="modal-label">Receipt Details</h5>
+                            <h5 class="modal-title">Receipt Details</h5>
                             <!-- Button closes modal and refreshes page to reset basket - as if items bought -->
                             <button type="button" class="btn-close" ng-click="reset()" aria-label="Close"></button>
                         </div>
@@ -274,7 +276,7 @@
             <div class="container-fluid">
                 <a class="navbar-brand" href="#/!">GETMEDIA</a>
                 <!-- Nav items - ng-class to change active in view -->
-                <div class="collapse navbar-collapse" id="navbarNav">
+                <div class="collapse navbar-collapse">
                     <ul class="navbar-nav mx-auto">
                         <li class="nav-item">
                             <a class="nav-link" aria-current="page" href="#/!"
@@ -296,12 +298,10 @@
                 </div>
             </div>
         </nav>
-    </footer>
-</body>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous">
-</script>
+    </footer><script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.slim.js"
     integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY=" crossorigin="anonymous"></script>
 <script src="script.js"></script>
+</body>
 </html>
