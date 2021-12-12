@@ -90,12 +90,13 @@
                                         ng-click="basketMinus(content.amount, $index)"></button>
                                     <!-- Input showing amount of items in basket-->
                                     <input type="number" id="amount" name="amount" class="bg-white text-black voucher-amount"
-                                        ng-value="content.amount" min="0">
+                                         min="0" max="99" ng-model="content.amount" ng-change="basketChange(content.name)" ng-blur="voucherNull(content.name)" limit>
                                     <!-- Plus amount of items in basket -->
                                     <button type="button" id="basket-plus"
                                         ng-click="basketPlus(content.amount, $index)"></button>
                                     <!-- Total price of individual items in basket -->
                                     <p class="card-subtitle mt-1">Total: £{{content.total}}</p>
+                                    <i id="error">{{content.basketError}}</i>
                                     <!-- Button to remove items from basket -->
                                     <button class="btn btn-outline-light mt-3 d-block mx-auto"
                                         ng-click="basketRemove(content.name)" id="remove-button">Remove From
@@ -110,7 +111,7 @@
                         <!-- Total price of all items in basket -->
                         <p class="h4" ng-class="{'d-none': emptyBasket.length>1}">Sub-Total: £{{costSubTotal}}</p>
                         <!-- Total number of items in basket -->
-                        <p class="fw-light" ng-class="{'d-none': emptyBasket.length>1}">{{itemTotal}} items</p>
+                        <p class="fw-light" ng-class="{'d-none': emptyBasket.length>1}">{{itemTotal}} {{itemPlural}}</p>
                     </div>
                 </div>
                 <div class="row pe-0 my-3">

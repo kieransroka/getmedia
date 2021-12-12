@@ -141,12 +141,10 @@ app.filter('order', function () {
                 angular.forEach(results, function () {
                     results["order"] = 2;
                 })
-            };
+            }
         });
     }
 });
-
-
 //Create array used to store contents added to basket
 let basketContent = [];
 //Controller for handling basket
@@ -166,6 +164,17 @@ app.controller('basket', ['$scope', function ($scope) {
             $scope.emptyBasket = ""
         }
     }
+
+    function itemPlural() {
+        $scope.itemTotal = basketContent.reduce((n, {
+            amount
+        }) => n + amount, 0);
+        if ($scope.itemTotal > 1) {
+            $scope.itemPlural = "items"
+        } else {
+            $scope.itemPlural = "item"
+        }
+    }
     //Function to add items to basket
     function addToBasket(index, itemCounter) {
         //Adds itemCounter to selected item amount
@@ -181,9 +190,7 @@ app.controller('basket', ['$scope', function ($scope) {
         //Shows basket
         $scope.show = true;
         //Adds total amount of items in basket together to display
-        $scope.itemTotal = basketContent.reduce((n, {
-            amount
-        }) => n + amount, 0);
+        itemPlural();
         //Adds up total cost of all items in basket to display
         $scope.costSubTotal = basketContent.map(p => p.cost * p.amount).reduce((a, b) => a + b).toFixed(2)
         //Outline is shown
@@ -196,10 +203,14 @@ app.controller('basket', ['$scope', function ($scope) {
         //Sets total to equal item amount multiplied by cost
         $scope.basketContent[index].total = ($scope.basketContent[index].amount * $scope.basketContent[index].cost).toFixed(2);
         //Adds total amount of items in basket together to display
-        $scope.itemTotal = basketContent.reduce((n, {
-            amount
-        }) => n + amount, 0);
+        itemPlural();
         //Adds up total cost of all items in basket to display
+        $scope.costSubTotal = basketContent.map(p => p.cost * p.amount).reduce((a, b) => a + b).toFixed(2)
+    }
+    //For change of input in basket
+    function basketInput(basketIndex) {
+        $scope.basketContent[basketIndex].total = ($scope.basketContent[basketIndex].amount * $scope.basketContent[basketIndex].cost).toFixed(2);
+        itemPlural();
         $scope.costSubTotal = basketContent.map(p => p.cost * p.amount).reduce((a, b) => a + b).toFixed(2)
     }
     //All vouchers
@@ -254,12 +265,14 @@ app.controller('basket', ['$scope', function ($scope) {
             $scope.outline = false;
         }
     }
+
     //Function for subtracting voucher amount from input using button on voucher.html
     $scope.minusButton = function (itemCounter, index) {
         if (itemCounter > 0) {
             //If input is greater than 0 then subtract 1 and update counter amount
             itemCounter--;
             $scope.items[index].counter = itemCounter
+            $scope.items[index].error = ""
         }
     };
     //Function for adding voucher amount from input using button on voucher.html
@@ -268,22 +281,37 @@ app.controller('basket', ['$scope', function ($scope) {
             //If input is less than 99 then add 1 and update counter amount
             itemCounter++;
             $scope.items[index].counter = itemCounter
+            $scope.items[index].error = ""
+        } else {
+            $scope.items[index].error = "The Maximum Amount Of Vouchers Cannot Exceed 99"
         }
     };
+
+    $scope.overLimit = function (index) {
+        if ($scope.items[index].counter === undefined) {
+            $scope.items[index].counter = 99;
+            $scope.items[index].error = "The Maximum Amount Of Vouchers Cannot Exceed 99"
+        } else {
+            $scope.items[index].error = ""
+        }
+    }
+
     //Function for adding items to the basket when button clicked
     $scope.basketAdd = function (index, itemName, itemCounter) {
         //Sets arrayIndex to equal position of item in array
         let arrayIndex = $scope.basketContent.findIndex(e => e.name === itemName);
         //If the counter contains a value & the item is not found in the array then the item is added
-        if ($scope.items[index].counter !== 0 && arrayIndex == -1) {
-            addToBasket(index, itemCounter);
-            //If the item is already in the array and contains a value, then the item is first removed from the array then added again to stop dupes
-        } else if ($scope.items[index].counter !== 0) {
-            $scope.basketContent.splice(arrayIndex, 1);
-            addToBasket(index, itemCounter);
-        } else {
+        if ($scope.items[index].counter === 0 || $scope.items[index].counter === null) {
             //If the counter does not contain a value
             $scope.items[index].error = "Please Enter an Amount!"
+        } else if ($scope.items[index].counter !== 0 && arrayIndex == -1 && $scope.items[index].counter !== null) {
+            addToBasket(index, itemCounter);
+            //If the item is already in the array and contains a value, then the item is first removed from the array then added again to stop dupes
+        } else if ($scope.items[index].counter !== 0 && $scope.basketContent[arrayIndex].amount + $scope.items[index].counter <= 99 && $scope.items[index].counter !== null) {
+            $scope.basketContent.splice(arrayIndex, 1);
+            addToBasket(index, itemCounter);
+        } else if ($scope.basketContent[arrayIndex].amount + $scope.items[index].counter > 99) {
+            $scope.items[index].error = "The Maximum Amount Of Vouchers Cannot Exceed 99"
         }
         //Removes empty basket error if item is added
         basketEmpty();
@@ -294,6 +322,7 @@ app.controller('basket', ['$scope', function ($scope) {
             //If amount is greater than 1 then subtract 1 and call costs function to update
             itemAmount--;
             costs(itemAmount, index);
+            $scope.basketContent[index].basketError = ""
         }
     }
     //Function for plus button within basket
@@ -302,6 +331,9 @@ app.controller('basket', ['$scope', function ($scope) {
             //If amount is less than 99 then add 1 and call costs function to update
             itemAmount++;
             costs(itemAmount, index);
+            $scope.basketContent[index].basketError = ""
+        } else {
+            $scope.basketContent[index].basketError = "The Maximum Amount Of Vouchers Cannot Exceed 99"
         }
     }
     //Function to remove items from basket
@@ -314,8 +346,35 @@ app.controller('basket', ['$scope', function ($scope) {
         let itemIndex = $scope.items.findIndex(e => e.name === itemName);
         //Sets item amount to equal 0 again
         $scope.items[itemIndex].amount = 0;
+        itemPlural();
+        if ($scope.basketContent.length > 0) {
+            //Adds up total cost of all items in basket to display
+            $scope.costSubTotal = basketContent.map(p => p.cost * p.amount).reduce((a, b) => a + b).toFixed(2)
+        }
         //Call basketEmpty to check if basket is now empty
         basketEmpty();
+    }
+
+    //For changing input in basket
+    $scope.basketChange = function (itemName) {
+        let basketIndex = $scope.basketContent.findIndex(e => e.name === itemName);
+        if ($scope.basketContent[basketIndex].amount === undefined) {
+            $scope.basketContent[basketIndex].amount = 99;
+            $scope.basketContent[basketIndex].basketError = "The Maximum Amount Of Vouchers Cannot Exceed 99"
+        } else if ($scope.basketContent[basketIndex].amount === 0) {
+            $scope.basketContent[basketIndex].amount = 1;
+        } else {
+            $scope.basketContent[basketIndex].basketError = ""
+        }
+        basketInput(basketIndex);
+    }
+    $scope.voucherNull = function (itemName) {
+        let basketIndex = $scope.basketContent.findIndex(e => e.name === itemName);
+        if ($scope.basketContent[basketIndex].amount === null) {
+            $scope.basketContent[basketIndex].amount = 1;
+        }
+        $scope.basketContent[basketIndex].basketError = ""
+        basketInput(basketIndex);
     }
 }]);
 
@@ -355,3 +414,27 @@ app.controller('contactForm', ['$scope', function ($scope) {
         document.getElementById("contact-form").reset();
     }
 }]);
+
+app.directive("limit", function () {
+    return {
+        link: function (scope, element, attributes) {
+            element.on("keydown keyup", function (e) {
+                if (Number(element.val()) > Number(attributes.max) &&
+                    e.keyCode != 46 // delete
+                    &&
+                    e.keyCode != 8 // backspace
+                ) {
+                    e.preventDefault();
+                    element.val(attributes.max);
+                } else if (Number(element.val()) < Number(attributes.min) &&
+                    e.keyCode != 46 // delete
+                    &&
+                    e.keyCode != 8 // backspace{
+                ) {
+                    e.preventDefault();
+                    element.val(attributes.min);
+                }
+            });
+        }
+    };
+});

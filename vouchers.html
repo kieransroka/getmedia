@@ -17,16 +17,16 @@
                     <!-- Minus button to deduct from amount of vouchers -->
                     <button type="button" id="minus" ng-click="minusButton(item.counter, $index)"></button>
                     <!-- Input showing amount of vouchers -->
-                    <input type="number" class="bg-white text-black voucher-amount" ng-value="item.counter" min="0" ng-model="amount">
+                    <input type="number" class="bg-white text-black voucher-amount" min="0" max="99" ng-model="item.counter" ng-change="overLimit($index)" limit>
                     <!-- Plus button to add to amount of vouchers -->
-                    <button type="button" id="plus" ng-click="plusButton(item.counter, $index)"></button>
+                    <button type="button" id="plus" class="" ng-click="plusButton(item.counter, $index)"></button>
                     <div class="card-footer text-center pb-2">
                         <!-- Button to add vouchers to basket using ng-click. -->
                         <button class="btn btn-outline-dark" ng-click="basketAdd($index, item.name, item.counter, item.cost)" resizer ng-class="{'w-75': isSmallMobile}">Add To Basket</button>
                     </div>
                 </div>
             </div>
-            <!-- Error displayed if amount added to basket is 0 -->
+            <!-- Error displayed -->
             <i id="error">{{item.error}}</i>
             <!--Card end-->
         </div>

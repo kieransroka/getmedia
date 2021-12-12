@@ -520,7 +520,7 @@ textarea {
 .voucher-amount::-webkit-inner-spin-button {
     display: none;
 }
-
+input[type=number] {-moz-appearance: textfield;}
 /* Minus button on voucher */
 #minus {
     width: 20px;
@@ -530,6 +530,7 @@ textarea {
     background-repeat: no-repeat;
     border: none;
     background-color: white !important;
+    vertical-align: text-top;
 }
 
 /* Plus button on voucher */
@@ -541,6 +542,7 @@ textarea {
     background-repeat: no-repeat;
     border: none;
     background-color: white !important;
+    vertical-align: text-top;
 }
 
 /* Voucher error */
@@ -612,12 +614,12 @@ footer .nav-item {
 
 }
 
-@media only screen and (max-width: 540px) {
+@media only screen and (max-width: 576px) {
 
     /* Basket container */
     .basket-box-show,
     .basket-box-hide {
-        width: 100%;
+        min-width: 100%;
     }
 
     /* Item image in basket */
@@ -638,7 +640,15 @@ footer .nav-item {
         background-repeat: no-repeat;
         background-size: cover;
     }
+ /* Heading on landing */
+ #heading-start {
+    padding-right: 0px;
+}
 
+/* Heading on landing */
+#heading-end {
+    padding-left: 0px;
+}
     /* Bootstrap card title */
     .card-title {
         font-size: 20px !important;
@@ -647,19 +657,6 @@ footer .nav-item {
     /* Bootstrap card subtitle */
     .card-subtitle {
         font-size: 17px !important;
-    }
-}
-
-@media only screen and (max-width: 376px) {
-
-    /* Heading on landing */
-    #heading-start {
-        padding-right: 130px;
-    }
-
-    /* Heading on landing */
-    #heading-end {
-        padding-left: 0px;
     }
 }
 
