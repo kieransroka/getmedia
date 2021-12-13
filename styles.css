@@ -477,6 +477,10 @@ textarea {
     width: 100%;
 }
 
+.search-result-btn{
+    min-width: 114px;
+}
+
 /* For removing right border of search result at certain view width */
 .noBorder {
     border-right: none !important;
@@ -700,7 +704,9 @@ footer .nav-item {
         width: 125px;
         height: 200px;
     }
-
+    .search-result-btn{
+        min-width: none;
+    }
 }
 
 @media only screen and (max-width: 280px) {
