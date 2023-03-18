@@ -1,11 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto&family=Staatliches&display=swap');
 
 /* HTML & Body set */
-html,
-body {
+html {
     min-height: 100vh;
     width: 100%;
     overflow-x: hidden;
+}
+
+body {
+    min-height: 100%;
 }
 
 /* Style for main */
@@ -22,9 +25,11 @@ main {
     font-family: 'Staatliches', cursive;
     font-size: 50px;
 }
-.heading{
+
+.heading {
     color: #282828;
 }
+
 /* Bootstrap h2 style */
 .h2 {
     font-family: 'Staatliches', cursive;
@@ -68,19 +73,23 @@ input,
     font-family: 'Roboto', sans-serif;
     font-size: 20px !important;
 }
-.btn.btn-outline-dark{
+
+.btn.btn-outline-dark {
     border-color: #282828 !important;
     color: #282828;
 }
-.btn.btn-outline-dark:hover{
+
+.btn.btn-outline-dark:hover {
     background-color: #282828 !important;
     color: #fff;
 }
-.btn.btn-outline-light{
+
+.btn.btn-outline-light {
     border-color: #fff !important;
     color: #fff;
 }
-.btn.btn-outline-light:hover{
+
+.btn.btn-outline-light:hover {
     background-color: #fff !important;
     color: #282828;
 }
@@ -477,7 +486,7 @@ textarea {
     width: 100%;
 }
 
-.search-result-btn{
+.search-result-btn {
     min-width: 114px;
 }
 
@@ -524,7 +533,11 @@ textarea {
 .voucher-amount::-webkit-inner-spin-button {
     display: none;
 }
-input[type=number] {-moz-appearance: textfield;}
+
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
 /* Minus button on voucher */
 #minus {
     width: 20px;
@@ -644,15 +657,17 @@ footer .nav-item {
         background-repeat: no-repeat;
         background-size: cover;
     }
- /* Heading on landing */
- #heading-start {
-    padding-right: 0px;
-}
 
-/* Heading on landing */
-#heading-end {
-    padding-left: 0px;
-}
+    /* Heading on landing */
+    #heading-start {
+        padding-right: 0px;
+    }
+
+    /* Heading on landing */
+    #heading-end {
+        padding-left: 0px;
+    }
+
     /* Bootstrap card title */
     .card-title {
         font-size: 20px !important;
@@ -704,7 +719,8 @@ footer .nav-item {
         width: 125px;
         height: 200px;
     }
-    .search-result-btn{
+
+    .search-result-btn {
         min-width: none;
     }
 }
@@ -737,7 +753,7 @@ footer .nav-item {
         font-size: 15px !important;
     }
 
-    .h3{
+    .h3 {
         font-size: 19px;
     }
 }
