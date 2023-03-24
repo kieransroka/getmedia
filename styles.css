@@ -28,6 +28,27 @@ main {
 
 .heading {
     color: #282828;
+    animation: fadeIn 3s forwards ease-in-out;
+    animation-delay: 2s;
+    transform: scale(0);
+}
+
+@keyframes fadeIn {
+    0% {
+        transform: scale(0);
+    }
+
+    50% {
+        transform: scale(1.1);
+    }
+
+    75% {
+        transform: scale(1);
+    }
+
+    100% {
+        transform: scale(1);
+    }
 }
 
 /* Bootstrap h2 style */
@@ -312,15 +333,35 @@ textarea {
     position: relative;
     top: 10%;
     left: 50%;
-    animation: increaseRadius 3s forwards;
+    animation: increaseRadius 3s ease-in-out 1, breath 5s ease-in-out 3s infinite;
     border-radius: 50%;
-    overflow: auto;
 }
 
 /* Animation for circle on landing.html */
 @keyframes increaseRadius {
     0% {
-        transform: translate(-50%, 0) scale(0);
+        opacity: 0;
+        transform: translate(-50%, 50%) scale(0);
+    }
+
+    50% {
+        opacity: 1;
+        transform: translate(-50%, 50%) scale(1.25);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translate(-50%, 0) scale(1);
+    }
+}
+
+@keyframes breath {
+    0% {
+        transform: translate(-50%, 0) scale(1);
+    }
+
+    50% {
+        transform: translate(-50%, 0) scale(1.05);
     }
 
     100% {
@@ -341,12 +382,16 @@ textarea {
 /* Cloud video */
 #videoBG {
     position: absolute;
+    top: 50%;
+    left: 50%;
     object-fit: cover;
     width: 300px;
     height: 300px;
     z-index: 1;
+    clip-path: circle(50% at 50% 50%);
+    transform: translate(-50%, -50%) !important;
+    border: 5px solid #282828;
     border-radius: 50%;
-    transform: none !important;
 }
 
 /* Used to space headings on landing page */

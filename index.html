@@ -31,8 +31,8 @@
             </button>
             <!-- Basket icon - hidden at large viewport for positioning-->
             <button class="btn shadow-none" ng-click="basketClick()" resizer
-            ng-class="{'d-none': isLarge || isSmall, 'basket-outline': outline}" title="Basket"><i
-                class="fas fa-shopping-basket text-white fa-2x"></i></button>
+                ng-class="{'d-none': isLarge || isSmall, 'basket-outline': outline}" title="Basket"><i
+                    class="fas fa-shopping-basket text-white fa-2x"></i></button>
             <!-- Nav items -->
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav" resizer ng-class="{'ms-0': isxSmall || isSmallMobile}">
@@ -89,8 +89,10 @@
                                     <button type="button" id="basket-minus"
                                         ng-click="basketMinus(content.amount, $index)"></button>
                                     <!-- Input showing amount of items in basket-->
-                                    <input type="number" id="amount" name="amount" class="bg-white text-black voucher-amount"
-                                         min="0" max="99" ng-model="content.amount" ng-change="basketChange(content.name)" ng-blur="voucherNull(content.name)" limit>
+                                    <input type="number" id="amount" name="amount"
+                                        class="bg-white text-black voucher-amount" min="0" max="99"
+                                        ng-model="content.amount" ng-change="basketChange(content.name)"
+                                        ng-blur="voucherNull(content.name)" limit>
                                     <!-- Plus amount of items in basket -->
                                     <button type="button" id="basket-plus"
                                         ng-click="basketPlus(content.amount, $index)"></button>
@@ -130,8 +132,8 @@
         <!-- Controller for purchase detail form -->
         <div ng-controller="purchaseForm">
             <!-- Modal for deatils form -->
-            <div class="modal fade" id="purchase-modal" tabindex="-1" title="Purchase Details"
-                aria-hidden="true" data-bs-backdrop="static">
+            <div class="modal fade" id="purchase-modal" tabindex="-1" title="Purchase Details" aria-hidden="true"
+                data-bs-backdrop="static">
                 <div class="modal-dialog modal-xl modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -213,8 +215,8 @@
                 </div>
             </div>
             <!-- Start of second modal to return user details -->
-            <div class="modal fade" id="receipt-modal" tabindex="-1" title="Receipt Popup"
-                aria-hidden="true" data-bs-backdrop="static">
+            <div class="modal fade" id="receipt-modal" tabindex="-1" title="Receipt Popup" aria-hidden="true"
+                data-bs-backdrop="static">
                 <div class="modal-dialog modal-xl modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -269,13 +271,14 @@
             </div>
         </div>
         <!-- Angular single page app -->
-        <div ng-view></div>
+        <div ng-view class="min-vh-100"></div>
     </main>
     <!-- footer -->
     <footer class="fixed-bottom">
         <nav class="navbar navbar-expand-lg navbar-dark" ng-controller="navController">
             <div class="container-fluid">
-                <a class="navbar-brand" resizer ng-class="{'position-absolute': isLarge || isSmall}" href="#/!">GETMEDIA</a>
+                <a class="navbar-brand" resizer ng-class="{'position-absolute': isLarge || isSmall}"
+                    href="#/!">GETMEDIA</a>
                 <!-- Nav items - ng-class to change active in view -->
                 <div class="collapse navbar-collapse">
                     <ul class="navbar-nav mx-auto">
@@ -299,10 +302,13 @@
                 </div>
             </div>
         </nav>
-    </footer><script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.slim.js"
-    integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY=" crossorigin="anonymous"></script>
-<script src="script.js"></script>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
+        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.slim.js"
+        integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY=" crossorigin="anonymous"></script>
+    <script src="script.js"></script>
 </body>
+
 </html>
