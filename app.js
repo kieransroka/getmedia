@@ -1,3 +1,23 @@
+function locationHandler(data) {
+    if(data.data === 'locationRequest'){
+        locationRel = window.location.href;
+        parent.postMessage(locationRel, '*');
+    }
+    else if(data.data === 'windowHistory'){
+       this.history.back(); 
+    }
+    else if(data.data === 'windowFwd'){
+        this.history.forward();
+    }
+    else if (data.data === 'windowFocus'){
+        window.addEventListener("click", function(){
+            windowFocus = 'windowFocus';
+            parent.postMessage(windowFocus, '*');
+        })
+    }
+}
+
+window.addEventListener('message', locationHandler, false);
 // Declaring module
 var app = angular.module("myApp", ["ngRoute"]);
 
